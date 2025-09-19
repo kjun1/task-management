@@ -1,5 +1,16 @@
 # Task Management Documentation
 
+[![GitHub Pages](https://github.com/kjun1/task-management/actions/workflows/hugo.yml/badge.svg)](https://github.com/kjun1/task-management/actions/workflows/hugo.yml)
+[![Quality Check](https://github.com/kjun1/task-management/actions/workflows/quality-check.yml/badge.svg)](https://github.com/kjun1/task-management/actions/workflows/quality-check.yml)
+[![Security & Dependencies](https://github.com/kjun1/task-management/actions/workflows/security-deps.yml/badge.svg)](https://github.com/kjun1/task-management/actions/workflows/security-deps.yml)
+
+[![Hugo Version](https://img.shields.io/badge/Hugo-0.150.0-blue.svg)](https://gohugo.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Live Site](https://img.shields.io/badge/Live%20Site-Available-brightgreen.svg)](https://kjun1.github.io/task-management)
+[![Language](https://img.shields.io/badge/Language-Japanese-red.svg)](https://github.com/kjun1/task-management)
+[![Theme](https://img.shields.io/badge/Theme-PaperMod-orange.svg)](https://github.com/adityatelange/hugo-PaperMod)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/kjun1/task-management/commits/main)
+
 このリポジトリは、タスク管理に関する包括的なドキュメンテーションサイトです。[Hugo](https://gohugo.io/) と [PaperMod](https://github.com/adityatelange/hugo-PaperMod) テーマを使用して構築されています。
 
 ## 🌐 サイト
