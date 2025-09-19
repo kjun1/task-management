@@ -7,6 +7,8 @@ theme: 'PaperMod'
 enableRobotsTXT: true
 enableGitInfo: true
 enableEmoji: true
+relativeURLs: true
+canonifyURLs: false
 
 # Multilingual configuration
 defaultContentLanguage: 'ja'
@@ -139,63 +141,23 @@ menu:
   main:
     - identifier: overview
       name: 概要
-      url: /overview/
+      url: overview/
       weight: 10
     - identifier: implementation-guide
       name: 実装ガイド
-      url: /implementation-guide/
+      url: implementation-guide/
       weight: 20
     - identifier: external-layer
       name: 外部レイヤー仕様
-      url: /external-layer/
+      url: external-layer/
       weight: 30
-    - identifier: external-layer-time
-      name: "　├ 時間・スケジューリング"
-      url: /external-layer/time-scheduling/
-      weight: 31
-    - identifier: external-layer-iteration
-      name: "　├ 反復・繰り返し"
-      url: /external-layer/iteration/
-      weight: 32
-    - identifier: external-layer-resource
-      name: "　├ 資源・容量管理"
-      url: /external-layer/resource-management/
-      weight: 33
-    - identifier: external-layer-governance
-      name: "　├ 統治・コンプライアンス"
-      url: /external-layer/governance/
-      weight: 34
-    - identifier: external-layer-economic
-      name: "　├ 経済・優先度管理"
-      url: /external-layer/economic-priority/
-      weight: 35
-    - identifier: external-layer-reliability
-      name: "　├ 信頼性・障害処理"
-      url: /external-layer/reliability/
-      weight: 36
-    - identifier: external-layer-audit
-      name: "　├ 監査・可観測性"
-      url: /external-layer/audit/
-      weight: 37
-    - identifier: external-layer-intelligence
-      name: "　├ 知性・学習"
-      url: /external-layer/intelligence/
-      weight: 38
-    - identifier: external-layer-environment
-      name: "　├ 環境・ローカライゼーション"
-      url: /external-layer/environment/
-      weight: 39
-    - identifier: external-layer-integration
-      name: "　└ 統合・実装ガイドライン"
-      url: /external-layer/integration/
-      weight: 40
     - identifier: practical-example
       name: 実践例
-      url: /practical-example/
+      url: practical-example/
       weight: 50
     - identifier: example-project
       name: プロジェクト例
-      url: /example-project/
+      url: example-project/
       weight: 60
 
 # Deployment configuration for GitHub Pages
