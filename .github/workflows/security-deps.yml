@@ -127,21 +127,17 @@ jobs:
             // Issueのタイトルと本文を作成
             const title = `📊 Lighthouse レポート - ${dateStr}`;
             
-            let body = `# 🚀 Lighthouse 品質監査レポート
-            
-## 📅 実行日時
-**${dateStr} ${timeStr} (JST)**
-
-## 📈 測定結果
-合計 **${reportCount}** ページを測定しました。
-
-### 📋 レポート一覧
-`;
+            let body = "# 🚀 Lighthouse 品質監査レポート\n\n";
+            body += "## 📅 実行日時\n";
+            body += "**" + dateStr + " " + timeStr + " (JST)**\n\n";
+            body += "## 📈 測定結果\n";
+            body += "合計 **" + reportCount + "** ページを測定しました。\n\n";
+            body += "### 📋 レポート一覧\n";
 
             // レポートURLをページ別に整理
             reportUrls.forEach((url, index) => {
               const pageMatch = url.match(/localhost:36367\/(.+?)\.html/);
-              const pageName = pageMatch ? pageMatch[1] : `Page ${index + 1}`;
+              const pageName = pageMatch ? pageMatch[1] : "Page " + (index + 1);
               const displayName = pageName
                 .replace('index', 'ホーム')
                 .replace('404', 'エラーページ')
@@ -151,33 +147,27 @@ jobs:
                 .replace('/index', '')
                 || 'その他のページ';
               
-              body += `- 📄 **${displayName}**: [レポートを見る](${url})\n`;
+              body += "- 📄 **" + displayName + "**: [レポートを見る](" + url + ")\n";
             });
 
-            body += `
-## 🔍 確認ポイント
-以下の観点でサイトの品質を確認してください：
-
-- **⚡ Performance**: ページの読み込み速度
-- **♿ Accessibility**: アクセシビリティ対応
-- **🎯 Best Practices**: Web開発のベストプラクティス
-- **🔍 SEO**: 検索エンジン最適化
-- **📱 PWA**: プログレッシブWebアプリ対応
-
-## 📝 改善アクション
-レポートで発見された問題があれば、以下の形式でコメントしてください：
-
-\`\`\`
-### 📄 [ページ名]
-- ❌ **問題**: [問題の説明]
-- ✅ **対応**: [対応方法]
-- 🔗 **参考**: [参考リンク]
-\`\`\`
-
----
-*このレポートは Security & Dependencies ワークフローにより自動生成されました。*
-*次回実行予定: 来週月曜日 9:00 JST*
-`;
+            body += "\n## 🔍 確認ポイント\n";
+            body += "以下の観点でサイトの品質を確認してください：\n\n";
+            body += "- **⚡ Performance**: ページの読み込み速度\n";
+            body += "- **♿ Accessibility**: アクセシビリティ対応\n";
+            body += "- **🎯 Best Practices**: Web開発のベストプラクティス\n";
+            body += "- **🔍 SEO**: 検索エンジン最適化\n";
+            body += "- **📱 PWA**: プログレッシブWebアプリ対応\n\n";
+            body += "## 📝 改善アクション\n";
+            body += "レポートで発見された問題があれば、以下の形式でコメントしてください：\n\n";
+            body += "```\n";
+            body += "### 📄 [ページ名]\n";
+            body += "- ❌ **問題**: [問題の説明]\n";
+            body += "- ✅ **対応**: [対応方法]\n";
+            body += "- 🔗 **参考**: [参考リンク]\n";
+            body += "```\n\n";
+            body += "---\n";
+            body += "*このレポートは Security & Dependencies ワークフローにより自動生成されました。*\n";
+            body += "*次回実行予定: 来週月曜日 9:00 JST*\n";
 
             // Issueを作成
             const issue = await github.rest.issues.create({
