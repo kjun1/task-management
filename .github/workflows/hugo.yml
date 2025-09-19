@@ -1,10 +1,22 @@
 name: Deploy Hugo site to GitHub Pages
 
 on:
-  # Trigger on pushes to main branch
+  # Trigger on pushes to main branch for relevant files only
   push:
     branches:
       - main
+    paths:
+      - 'content/**'
+      - 'layouts/**'
+      - 'static/**'
+      - 'themes/**'
+      - 'hugo.yaml'
+      - 'hugo.yml'
+      - 'hugo.toml'
+      - 'config.yaml'
+      - 'config.yml'
+      - 'config.toml'
+      - '.github/workflows/hugo.yml'
   
   # Allow manual trigger
   workflow_dispatch:
