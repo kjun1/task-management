@@ -64,6 +64,9 @@ jobs:
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
 
+      - name: Create .nojekyll file for GitHub Pages
+        run: touch ./public/.nojekyll
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
