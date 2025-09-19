@@ -11,10 +11,14 @@ permissions:
   pull-requests: write
   actions: read
   pages: write
+  deployments: write
 
 jobs:
   build-preview:
     runs-on: ubuntu-latest
+    environment:
+      name: preview-pr-${{ github.event.number }}
+      url: https://kjun1.github.io/task-management/
     env:
       HUGO_VERSION: 0.150.0
     steps:
@@ -36,9 +40,16 @@ jobs:
           hugo \
             --gc \
             --minify \
-            --baseURL "https://kjun1.github.io/task-management/pr-${{ github.event.number }}"
+            --baseURL "https://kjun1.github.io/task-management/"
 
-      - name: Deploy to Preview Branch
+      - name: Upload Preview Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-site-pr-${{ github.event.number }}
+          path: public/
+          retention-days: 30
+
+      - name: Deploy to Preview Branch (for manual testing)
         run: |
           # Configure git
           git config --global user.name 'github-actions[bot]'
@@ -61,6 +72,25 @@ jobs:
           cp -r public/* .
           cp public/.* . 2>/dev/null || true
           
+          # Create .nojekyll to ensure GitHub Pages works correctly
+          touch .nojekyll
+          
+          # Add README with instructions
+          cat > README.md << 'EOF'
+          # Preview for PR #${{ github.event.number }}
+          
+          This branch contains the built site for PR #${{ github.event.number }}.
+          
+          To view this preview:
+          1. Go to Repository Settings → Pages
+          2. Change source to "Deploy from a branch"
+          3. Select this branch: `preview-pr-${{ github.event.number }}`
+          4. Select "/ (root)" as the folder
+          5. Save the settings
+          
+          The preview will be available at: https://kjun1.github.io/task-management/
+          EOF
+          
           # Add all files and commit
           git add .
           git commit -m "Deploy preview for PR #${{ github.event.number }}"
@@ -75,14 +105,27 @@ jobs:
           script: |
             const fs = require('fs');
             const prNumber = context.issue.number;
-            const previewUrl = `https://kjun1.github.io/task-management/pr-${prNumber}`;
+            const branchUrl = `https://github.com/kjun1/task-management/tree/preview-pr-${prNumber}`;
+            const artifactUrl = `https://github.com/kjun1/task-management/actions/runs/${context.runId}`;
             const body = `🔍 **Preview Build Complete**
             
             - 📊 Build artifacts generated
-            - 🔗 **Preview URL**: ${previewUrl}
+            - 📦 **Download Preview**: [Artifacts](${artifactUrl}) (preview-site-pr-${prNumber})
+            - 🌿 **Preview Branch**: [preview-pr-${prNumber}](${branchUrl})
             - 📈 Build size: ${fs.statSync('./public').size} bytes (approx)
             
-            **Note**: プレビューサイトがアクセス可能になるまで数分かかる場合があります。
+            ## プレビューを確認する方法:
+            
+            ### 方法1: Artifactをダウンロード
+            1. 上の "Artifacts" リンクをクリック
+            2. \`preview-site-pr-${prNumber}\` をダウンロード
+            3. 展開してローカルでサーブ (\`python -m http.server\` など)
+            
+            ### 方法2: GitHub Pagesで確認 (手動設定)
+            1. [Repository Settings → Pages](https://github.com/kjun1/task-management/settings/pages)
+            2. Source を "Deploy from a branch" に変更
+            3. Branch を \`preview-pr-${prNumber}\` に設定
+            4. Save後、https://kjun1.github.io/task-management/ でアクセス
             `;
             
             github.rest.issues.createComment({
