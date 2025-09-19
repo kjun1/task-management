@@ -7,6 +7,10 @@ on:
     - cron: '0 0 * * 1'
   workflow_dispatch:
 
+permissions:
+  contents: read
+  issues: write
+
 jobs:
   dependency-check:
     runs-on: ubuntu-latest
@@ -86,5 +90,107 @@ jobs:
         run: npm install -g @lhci/cli@0.12.x
 
       - name: Run Lighthouse CI
+        id: lighthouse
         run: |
-          lhci autorun --upload.target=temporary-public-storage --collect.staticDistDir=./public || echo "Lighthouse completed with warnings"
+          echo "Starting Lighthouse CI..."
+          lhci autorun --upload.target=temporary-public-storage --collect.staticDistDir=./public 2>&1 | tee lighthouse-output.txt || echo "Lighthouse completed with warnings"
+          
+          # レポートURLを抽出
+          echo "Extracting report URLs..."
+          grep -o 'https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/[^"]*\.report\.html' lighthouse-output.txt > report-urls.txt || echo "No report URLs found"
+          
+          # 結果をGitHub Actionsの出力に設定
+          if [ -s report-urls.txt ]; then
+            echo "reports_found=true" >> $GITHUB_OUTPUT
+            echo "report_count=$(wc -l < report-urls.txt)" >> $GITHUB_OUTPUT
+          else
+            echo "reports_found=false" >> $GITHUB_OUTPUT
+            echo "report_count=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Lighthouse Report Issue
+        if: steps.lighthouse.outputs.reports_found == 'true'
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const reportUrls = fs.readFileSync('report-urls.txt', 'utf8').trim().split('\n').filter(url => url);
+            const reportCount = reportUrls.length;
+            
+            // 現在の日時を取得
+            const now = new Date();
+            const jstDate = new Date(now.getTime() + (9 * 60 * 60 * 1000)); // JST変換
+            const dateStr = jstDate.toISOString().split('T')[0];
+            const timeStr = jstDate.toTimeString().split(' ')[0];
+            
+            // Issueのタイトルと本文を作成
+            const title = `📊 Lighthouse レポート - ${dateStr}`;
+            
+            let body = `# 🚀 Lighthouse 品質監査レポート
+            
+## 📅 実行日時
+**${dateStr} ${timeStr} (JST)**
+
+## 📈 測定結果
+合計 **${reportCount}** ページを測定しました。
+
+### 📋 レポート一覧
+`;
+
+            // レポートURLをページ別に整理
+            reportUrls.forEach((url, index) => {
+              const pageMatch = url.match(/localhost:36367\/(.+?)\.html/);
+              const pageName = pageMatch ? pageMatch[1] : `Page ${index + 1}`;
+              const displayName = pageName
+                .replace('index', 'ホーム')
+                .replace('404', 'エラーページ')
+                .replace('categories/index', 'カテゴリ一覧')
+                .replace('example-project/index', 'プロジェクト例')
+                .replace('external-layer-specification/index', '外部レイヤー仕様')
+                .replace('/index', '')
+                || 'その他のページ';
+              
+              body += `- 📄 **${displayName}**: [レポートを見る](${url})\n`;
+            });
+
+            body += `
+## 🔍 確認ポイント
+以下の観点でサイトの品質を確認してください：
+
+- **⚡ Performance**: ページの読み込み速度
+- **♿ Accessibility**: アクセシビリティ対応
+- **🎯 Best Practices**: Web開発のベストプラクティス
+- **🔍 SEO**: 検索エンジン最適化
+- **📱 PWA**: プログレッシブWebアプリ対応
+
+## 📝 改善アクション
+レポートで発見された問題があれば、以下の形式でコメントしてください：
+
+\`\`\`
+### 📄 [ページ名]
+- ❌ **問題**: [問題の説明]
+- ✅ **対応**: [対応方法]
+- 🔗 **参考**: [参考リンク]
+\`\`\`
+
+---
+*このレポートは Security & Dependencies ワークフローにより自動生成されました。*
+*次回実行予定: 来週月曜日 9:00 JST*
+`;
+
+            // Issueを作成
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              body: body,
+              labels: ['lighthouse', 'quality-check', '品質監査']
+            });
+            
+            console.log(`Created issue #${issue.data.number}: ${issue.data.html_url}`);
+
+      - name: Cleanup temporary files
+        if: always()
+        run: |
+          rm -f lighthouse-output.txt report-urls.txt || true
