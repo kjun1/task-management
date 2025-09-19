@@ -1,4 +1,4 @@
-baseURL: 'https://kjun1.github.io/task-management'
+baseURL: 'https://kjun1.github.io/task-management/'
 languageCode: 'ja-jp'
 title: 'Task Management Documentation'
 theme: 'PaperMod'
@@ -7,8 +7,8 @@ theme: 'PaperMod'
 enableRobotsTXT: true
 enableGitInfo: true
 enableEmoji: true
-relativeURLs: true
-canonifyURLs: false
+relativeURLs: false
+canonifyURLs: true
 
 # Multilingual configuration
 defaultContentLanguage: 'ja'
