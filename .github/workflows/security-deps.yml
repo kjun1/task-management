@@ -35,6 +35,21 @@ jobs:
             echo "::warning::PaperMod theme is $BEHIND commits behind"
           fi
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
+        if: ${{ hashFiles('package.json') != '' }}
+
+      - name: Generate lockfile if missing
+        run: |
+          if [ -f "package.json" ] && [ ! -f "package-lock.json" ]; then
+            echo "Generating package-lock.json..."
+            npm install --package-lock-only
+          fi
+        if: ${{ hashFiles('package.json') != '' }}
+
       - name: Security audit (if package.json exists)
         run: |
           if [ -f "package.json" ]; then
