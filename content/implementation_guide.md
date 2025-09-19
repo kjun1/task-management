@@ -4,6 +4,9 @@ type: docs
 weight: 20
 description: "数学的タスク管理フレームワークの導入手順"
 url: "/implementation-guide/"
+sitemap:
+  priority: 0.8
+  changefreq: weekly
 ---
 
 # 実装ガイド：数学的タスク管理フレームワークの導入手順

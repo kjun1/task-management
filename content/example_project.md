@@ -4,6 +4,9 @@ type: docs
 weight: 50
 description: "ウェブアプリケーション開発プロジェクトでのタスク管理フレームワーク実例"
 url: "/example-project/"
+sitemap:
+  priority: 0.6
+  changefreq: monthly
 ---
 
 # タスク管理フレームワーク実例：ウェブアプリケーション開発プロジェクト

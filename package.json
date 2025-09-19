@@ -1,0 +1,43 @@
+# Hugo package.json for development dependencies
+{
+  "name": "task-management-hugo",
+  "version": "1.0.0",
+  "description": "Japanese Hugo documentation site for mathematical task management framework (optimized for Dev Container)",
+  "private": true,
+  "scripts": {
+    "dev": "hugo server --bind 0.0.0.0 --port 1313",
+    "dev:drafts": "hugo server --bind 0.0.0.0 --port 1313 --buildDrafts --buildFuture",
+    "build": "hugo --gc --minify",
+    "clean": "rm -rf public resources/_gen .hugo_build.lock",
+    "test": "npm run lint && npm run build",
+    "lint": "markdownlint content/**/*.md",
+    "lint:fix": "markdownlint --fix content/**/*.md",
+    "check:links": "find content -name '*.md' -exec markdown-link-check {} \\;",
+    "check:deps": "npm-check-updates",
+    "preview": "npm run build && cd public && python3 -m http.server 8080"
+  },
+  "devDependencies": {
+    "markdownlint-cli": "^0.37.0",
+    "markdown-link-check": "^3.11.2",
+    "npm-check-updates": "^16.14.6",
+    "@lhci/cli": "^0.12.0"
+  },
+  "keywords": [
+    "hugo",
+    "documentation",
+    "japanese",
+    "mathematics",
+    "task-management",
+    "static-site"
+  ],
+  "author": "kjun1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kjun1/task-management.git"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}

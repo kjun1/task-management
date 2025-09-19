@@ -1,6 +1,9 @@
 ---
 title: "Task Management Documentation"
 type: docs
+sitemap:
+  priority: 1.0
+  changefreq: daily
 ---
 
 このサイトでは、タスク管理に関する包括的なドキュメントを提供しています。

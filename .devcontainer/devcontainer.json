@@ -12,6 +12,13 @@
   },
 
   "postCreateCommand": "bash .devcontainer/setup.sh",
+  "postStartCommand": "echo '🔄 Dev Container started! Run \"make help\" for available commands.'",
+  "postAttachCommand": "echo '📝 Ready for Hugo development! Current directory: $(pwd)'",
+
+  "containerEnv": {
+    "DEVCONTAINER": "1",
+    "HUGO_ENVIRONMENT": "development"
+  },
 
   "customizations": {
     "vscode": {
@@ -20,12 +27,24 @@
         "yzhang.markdown-all-in-one",
         "ms-vscode.vscode-json",
         "bradlc.vscode-tailwindcss",
-        "golang.go"
+        "golang.go",
+        "ms-vscode.makefile-tools",
+        "christian-kohler.npm-intellisense",
+        "ms-vscode.vscode-github-issue-notebooks"
       ],
       "settings": {
         "terminal.integrated.defaultProfile.linux": "bash",
         "markdown.preview.breaks": true,
-        "markdown.preview.linkify": true
+        "markdown.preview.linkify": true,
+        "markdown.preview.typographer": true,
+        "markdownlint.config": {
+          "MD033": false,
+          "MD041": false
+        },
+        "makefile.extensionOutputFolder": "./.vscode",
+        "files.associations": {
+          "*.md": "markdown"
+        }
       }
     }
   },

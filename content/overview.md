@@ -4,6 +4,9 @@ type: docs
 weight: 10
 description: "タスク管理の数学的フレームワークの概要"
 url: "/overview/"
+sitemap:
+  priority: 0.9
+  changefreq: weekly
 ---
 
 # タスク管理の数学的フレームワーク

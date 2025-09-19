@@ -11,6 +11,11 @@ enableEmoji: true
 # Multilingual configuration
 defaultContentLanguage: 'ja'
 
+# サイトマップ設定
+sitemap:
+  changefreq: "weekly"
+  priority: 0.8
+
 # Markup configuration
 markup:
   goldmark:
@@ -51,6 +56,15 @@ params:
   keywords: [タスク管理, フレームワーク, 数学, プロジェクト管理]
   author: kjun1
   DateFormat: "January 2, 2006"
+  
+  # SEO強化
+  images: ["images/og-image.png"]  # OGP画像
+  language: "ja-JP"
+  locale: "ja_JP"
+  
+  # アナリティクス（必要に応じて設定）
+  # googleAnalytics: "G-MEASUREMENT-ID"
+  
   defaultTheme: auto
   disableThemeToggle: false
   
@@ -154,3 +168,40 @@ deployment:
 # Build configuration
 build:
   writeStats: true
+  
+# 出力最適化
+minify:
+  disableCSS: false
+  disableHTML: false
+  disableJS: false
+  disableJSON: false
+  disableSVG: false
+  disableXML: false
+
+# キャッシュ設定
+caches:
+  assets:
+    dir: :cacheDir/_gen
+    maxAge: 24h
+  getcsv:
+    dir: :cacheDir/getcsv
+    maxAge: 1h
+  getjson:
+    dir: :cacheDir/getjson
+    maxAge: 1h
+  images:
+    dir: :cacheDir/images
+    maxAge: 24h
+
+# 関連記事設定
+related:
+  includeNewer: true
+  indices:
+    - name: keywords
+      weight: 100
+    - name: tags
+      weight: 80
+    - name: date
+      weight: 10
+  threshold: 50
+  toLower: false

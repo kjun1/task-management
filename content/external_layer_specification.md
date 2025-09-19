@@ -4,6 +4,9 @@ type: docs
 weight: 30
 description: "タスク管理フレームワークの外部層仕様書"
 url: "/external-layer-specification/"
+sitemap:
+  priority: 0.8
+  changefreq: monthly
 ---
 
 # タスク管理フレームワーク：外部層仕様書

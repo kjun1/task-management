@@ -1,0 +1,51 @@
+# プルリクエスト用のプレビューデプロイメント
+name: PR Preview
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-preview:
+    runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: 0.150.0
+    steps:
+      - name: Install Hugo CLI
+        run: |
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
+          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Build PR Preview
+        env:
+          HUGO_ENVIRONMENT: preview
+          HUGO_ENV: preview
+        run: |
+          hugo \
+            --gc \
+            --minify \
+            --baseURL "https://pr-${{ github.event.number }}.preview.example.com"
+
+      - name: Comment PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const body = `🔍 **Preview Build Complete**
+            
+            - 📊 Build artifacts generated
+            - 🔗 Preview URL would be: https://pr-${{ github.event.number }}.preview.example.com
+            - 📈 Build size: ${fs.statSync('./public').size} bytes (approx)
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });

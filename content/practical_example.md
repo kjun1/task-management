@@ -4,6 +4,9 @@ type: docs
 weight: 40
 description: "小規模チーム開発での動的タスク管理の実践例"
 url: "/practical-example/"
+sitemap:
+  priority: 0.6
+  changefreq: monthly
 ---
 
 # 実践例：小規模チーム開発での動的タスク管理

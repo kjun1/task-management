@@ -1,0 +1,10 @@
+{{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {{ range .Data.Pages }}{{ if ne .Params.sitemap_exclude true }}
+  <url>
+    <loc>{{ .Permalink }}</loc>{{ if not .Lastmod.IsZero }}
+    <lastmod>{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" | safeHTML }}</lastmod>{{ end }}
+    <changefreq>{{ if .Params.sitemap.changefreq }}{{ .Params.sitemap.changefreq }}{{ else }}{{ .Sitemap.ChangeFreq }}{{ end }}</changefreq>
+    <priority>{{ if .Params.sitemap.priority }}{{ .Params.sitemap.priority }}{{ else }}{{ .Sitemap.Priority }}{{ end }}</priority>
+  </url>{{ end }}{{ end }}
+</urlset>
