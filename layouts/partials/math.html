@@ -1,7 +1,9 @@
 {{- if or .Params.math .Site.Params.math -}}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<!-- Load KaTeX CSS asynchronously to prevent render blocking -->
+<link rel="preload" href="{{ "css/katex.min.css" | absURL }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ "css/katex.min.css" | absURL }}"></noscript>
+<script defer src="{{ "js/katex.min.js" | absURL }}"></script>
+<script defer src="{{ "js/auto-render.min.js" | absURL }}"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement(document.body, {
@@ -11,7 +13,21 @@
                 {left: '\\(', right: '\\)', display: false},
                 {left: '\\[', right: '\\]', display: true}
             ],
-            throwOnError : false
+            throwOnError: false,
+            // Optimize DOM structure
+            output: 'html',
+            strict: false,
+            // Reduce nesting in math expressions
+            macros: {
+                "\\RR": "\\mathbb{R}",
+                "\\NN": "\\mathbb{N}",
+                "\\ZZ": "\\mathbb{Z}",
+                "\\QQ": "\\mathbb{Q}",
+                "\\CC": "\\mathbb{C}"
+            },
+            // Reduce DOM complexity for large expressions
+            maxSize: 25,
+            maxExpand: 10
         });
     });
 </script>

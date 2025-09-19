@@ -32,7 +32,7 @@ jobs:
 
       - name: Link validation
         run: |
-          find content -name "*.md" -exec markdown-link-check {} \; || echo "Broken links found"
+          find content -name "*.md" -exec markdown-link-check --config .markdown-link-check.json {} \;
 
       - name: Hugo build test
         env:

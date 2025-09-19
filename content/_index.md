@@ -10,11 +10,11 @@ sitemap:
 
 ## ドキュメント構成
 
-- [概要](./overview/) - プロジェクト全体の概要
-- [実装ガイド](./implementation-guide/) - 実装に関する詳細ガイド
-- [外部レイヤー仕様](./external-layer-specification/) - 外部システムとの連携仕様
-- [実践例](./practical-example/) - 具体的な使用例
-- [プロジェクト例](./example-project/) - サンプルプロジェクト
+- [概要](/overview/) - プロジェクト全体の概要
+- [実装ガイド](/implementation-guide/) - 実装に関する詳細ガイド
+- [外部レイヤー仕様](/external-layer-specification/) - 外部システムとの連携仕様
+- [実践例](/practical-example/) - 具体的な使用例
+- [プロジェクト例](/example-project/) - サンプルプロジェクト
 
 ## はじめに
 
