@@ -315,10 +315,10 @@ $$
 
 $$
 \mathbf{R}(\mathcal{T}_s,\Delta_s)
-=\operatorname*{arg\,min}_{\text{seq}\in \Sigma(\Phi_{\rho(\Delta_s)})}
+=\underset{\text{seq}\in \Sigma(\Phi_{\rho(\Delta_s)})}{\operatorname{argmin}}
 \Big[
-L_{\mathrm{cons}}(\operatorname{apply}(\text{seq},\mathcal{T}_s),\Omega_s)
-+\lambda\,L_{\mathrm{chg}}(\operatorname{apply}(\text{seq},\mathcal{T}_s),\mathcal{T}_s)
+L_{\mathrm{cons}}(\mathrm{apply}(\text{seq},\mathcal{T}_s),\Omega_s)
++\lambda\,L_{\mathrm{chg}}(\mathrm{apply}(\text{seq},\mathcal{T}_s),\mathcal{T}_s)
 \Big]
 $$
 
@@ -385,7 +385,7 @@ $$op \circ op = op \quad \text{for } op \in \{\text{del}, \text{update with same
 
 タスクネットワーク間の変更コストを以下で定義します：
 
-$$d(\mathcal{T}',\mathcal{T})=\alpha\,\#\Delta V+\beta\,\#\Delta E+\gamma\,\#\Delta\Pi+\delta\,\#\Delta F$$
+$$d(\mathcal{T}',\mathcal{T})=\alpha \cdot \#\Delta V+\beta \cdot \#\Delta E+\gamma \cdot \#\Delta\Pi+\delta \cdot \#\Delta F$$
 
 ここで：
 
