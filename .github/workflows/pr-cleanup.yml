@@ -1,0 +1,51 @@
+# PRが閉じられた時のプレビューブランチクリーンアップ
+name: PR Preview Cleanup
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Delete Preview Branch
+        run: |
+          # Configure git
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          # Delete preview branch
+          PREVIEW_BRANCH="preview-pr-${{ github.event.number }}"
+          git fetch origin || true
+          
+          if git ls-remote --exit-code --heads origin $PREVIEW_BRANCH; then
+            echo "Deleting preview branch: $PREVIEW_BRANCH"
+            git push origin --delete $PREVIEW_BRANCH
+          else
+            echo "Preview branch $PREVIEW_BRANCH does not exist"
+          fi
+
+      - name: Comment PR Cleanup
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const body = `🧹 **Preview Cleanup Complete**
+            
+            - 🗑️ Preview branch deleted
+            - 🔗 Preview URL is no longer accessible
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });

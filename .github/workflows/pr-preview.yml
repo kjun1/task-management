@@ -6,10 +6,11 @@ on:
     branches: [ main ]
 
 permissions:
-  contents: read
+  contents: write
   issues: write
   pull-requests: write
   actions: read
+  pages: write
 
 jobs:
   build-preview:
@@ -35,7 +36,37 @@ jobs:
           hugo \
             --gc \
             --minify \
-            --baseURL "https://pr-${{ github.event.number }}.preview.example.com"
+            --baseURL "https://kjun1.github.io/task-management/pr-${{ github.event.number }}"
+
+      - name: Deploy to Preview Branch
+        run: |
+          # Configure git
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          # Create preview branch name
+          PREVIEW_BRANCH="preview-pr-${{ github.event.number }}"
+          
+          # Check if preview branch exists and delete it
+          git fetch origin || true
+          if git ls-remote --exit-code --heads origin $PREVIEW_BRANCH; then
+            git push origin --delete $PREVIEW_BRANCH || true
+          fi
+          
+          # Create new orphan branch for preview
+          git checkout --orphan $PREVIEW_BRANCH
+          git rm -rf .
+          
+          # Copy built site to root
+          cp -r public/* .
+          cp public/.* . 2>/dev/null || true
+          
+          # Add all files and commit
+          git add .
+          git commit -m "Deploy preview for PR #${{ github.event.number }}"
+          
+          # Push to preview branch
+          git push origin $PREVIEW_BRANCH
 
       - name: Comment PR
         uses: actions/github-script@v8
@@ -43,11 +74,15 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
+            const prNumber = context.issue.number;
+            const previewUrl = `https://kjun1.github.io/task-management/pr-${prNumber}`;
             const body = `🔍 **Preview Build Complete**
             
             - 📊 Build artifacts generated
-            - 🔗 Preview URL would be: https://pr-${{ github.event.number }}.preview.example.com
+            - 🔗 **Preview URL**: ${previewUrl}
             - 📈 Build size: ${fs.statSync('./public').size} bytes (approx)
+            
+            **Note**: プレビューサイトがアクセス可能になるまで数分かかる場合があります。
             `;
             
             github.rest.issues.createComment({
