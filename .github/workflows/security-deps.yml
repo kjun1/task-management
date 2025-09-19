@@ -40,19 +40,20 @@ jobs:
         with:
           node-version: 'lts/*'
           cache: 'npm'
-        if: ${{ hashFiles('package.json') != '' }}
 
       - name: Generate lockfile if missing
         run: |
           if [ -f "package.json" ] && [ ! -f "package-lock.json" ]; then
             echo "Generating package-lock.json..."
             npm install --package-lock-only
+          else
+            echo "package-lock.json already exists or no package.json found"
           fi
-        if: ${{ hashFiles('package.json') != '' }}
 
       - name: Security audit (if package.json exists)
         run: |
           if [ -f "package.json" ]; then
+            echo "Running npm audit..."
             npm audit --audit-level moderate
           else
             echo "No package.json found, skipping npm audit"
