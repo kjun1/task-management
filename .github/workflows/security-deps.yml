@@ -62,7 +62,7 @@ jobs:
         run: hugo --gc --minify
 
       - name: Setup Node.js for Lighthouse
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 'lts/*'
 
