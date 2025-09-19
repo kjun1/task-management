@@ -1,3 +1,11 @@
+---
+title: "概要"
+type: docs
+weight: 10
+description: "タスク管理の数学的フレームワークの概要"
+url: "/overview/"
+---
+
 # タスク管理の数学的フレームワーク
 
 ## 概要
@@ -292,7 +300,7 @@ $$\sigma:\ \rho\ \mapsto\ \Phi_\rho\subseteq \Phi$$
 
 ### 4.4 再構成写像 $\mathbf{R}$（選択と最小変更）
 
-**再構成演算子**
+**再構成演算子**:
 
 $$
 \mathbf{R}:\ (\mathcal{T}_s,\Delta_s)\ \mapsto\ \mathcal{T}_{s+1}

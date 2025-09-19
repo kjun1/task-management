@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Task Management Documentation</title>
+    <link>http://localhost:1313/task-management/</link>
+    <description>Recent content on Task Management Documentation</description>
+    <generator>Hugo -- 0.150.0</generator>
+    <language>ja-jp</language>
+    <atom:link href="http://localhost:1313/task-management/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>概要</title>
+      <link>http://localhost:1313/task-management/overview/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/task-management/overview/</guid>
+      <description>タスク管理の数学的フレームワークの概要</description>
+    </item>
+    <item>
+      <title>実装ガイド</title>
+      <link>http://localhost:1313/task-management/implementation-guide/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/task-management/implementation-guide/</guid>
+      <description>数学的タスク管理フレームワークの導入手順</description>
+    </item>
+    <item>
+      <title>外部レイヤー仕様</title>
+      <link>http://localhost:1313/task-management/external-layer-specification/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/task-management/external-layer-specification/</guid>
+      <description>タスク管理フレームワークの外部層仕様書</description>
+    </item>
+    <item>
+      <title>実践例</title>
+      <link>http://localhost:1313/task-management/practical-example/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/task-management/practical-example/</guid>
+      <description>小規模チーム開発での動的タスク管理の実践例</description>
+    </item>
+    <item>
+      <title>プロジェクト例</title>
+      <link>http://localhost:1313/task-management/example-project/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/task-management/example-project/</guid>
+      <description>ウェブアプリケーション開発プロジェクトでのタスク管理フレームワーク実例</description>
+    </item>
+  </channel>
+</rss>

@@ -1,3 +1,11 @@
+---
+title: "外部レイヤー仕様"
+type: docs
+weight: 30
+description: "タスク管理フレームワークの外部層仕様書"
+url: "/external-layer-specification/"
+---
+
 # タスク管理フレームワーク：外部層仕様書
 
 ## 概要

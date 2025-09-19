@@ -1,3 +1,11 @@
+---
+title: "実装ガイド"
+type: docs
+weight: 20
+description: "数学的タスク管理フレームワークの導入手順"
+url: "/implementation-guide/"
+---
+
 # 実装ガイド：数学的タスク管理フレームワークの導入手順
 
 ## 段階的導入アプローチ

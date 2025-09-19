@@ -1,0 +1,156 @@
+baseURL: 'https://kjun1.github.io/task-management'
+languageCode: 'ja-jp'
+title: 'Task Management Documentation'
+theme: 'PaperMod'
+
+# Hugo configuration
+enableRobotsTXT: true
+enableGitInfo: true
+enableEmoji: true
+
+# Multilingual configuration
+defaultContentLanguage: 'ja'
+
+# Markup configuration
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+    extensions:
+      passthrough:
+        delimiters:
+          block:
+            - - \[
+              - \]
+            - - $$
+              - $$
+          inline:
+            - - \(
+              - \)
+            - - $
+              - $
+        enable: true
+  highlight:
+    style: github
+    lineNos: true
+    anchorLineNos: false
+    codeFences: true
+    guessSyntax: false
+    hl_Lines: ""
+    lineAnchors: ""
+    lineNoStart: 1
+    lineNumbersInTable: true
+    noClasses: false
+    tabWidth: 4
+
+# Site parameters
+params:
+  env: production
+  title: Task Management Documentation
+  description: "タスク管理の数学的フレームワークに関するドキュメント"
+  keywords: [タスク管理, フレームワーク, 数学, プロジェクト管理]
+  author: kjun1
+  DateFormat: "January 2, 2006"
+  defaultTheme: auto
+  disableThemeToggle: false
+  
+  # 数式レンダリングを有効化
+  math: true
+
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: false
+  hidemeta: false
+  hideSummary: false
+  showtoc: true
+  tocopen: true
+
+  assets:
+    # disableHLJS: true # to disable highlight.js
+    # disableFingerprinting: true
+    favicon: "<link / abs url>"
+    favicon16x16: "<link / abs url>"
+    favicon32x32: "<link / abs url>"
+    apple_touch_icon: "<link / abs url>"
+    safari_pinned_tab: "<link / abs url>"
+
+  label:
+    text: "Task Management Documentation"
+    icon: /apple-touch-icon.png
+    iconHeight: 35
+
+  # profile-mode
+  profileMode:
+    enabled: false # needs to be explicitly set
+
+  # home-info mode
+  homeInfoParams:
+    Title: "Task Management Documentation"
+    Content: タスク管理の数学的フレームワークに関する包括的なドキュメント
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/kjun1/task-management"
+
+  cover:
+    hidden: true # hide everywhere but not in structured data
+    hiddenInList: true # hide on list pages and home
+    hiddenInSingle: true # hide on single page
+
+  editPost:
+    URL: "https://github.com/kjun1/task-management/tree/main/content"
+    Text: "Edit"
+    appendFilePath: true # to append file path to Edit link
+
+  # for search
+  # https://fusejs.io/api/options.html
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+
+menu:
+  main:
+    - identifier: overview
+      name: 概要
+      url: /overview/
+      weight: 10
+    - identifier: implementation-guide
+      name: 実装ガイド
+      url: /implementation-guide/
+      weight: 20
+    - identifier: external-layer-specification
+      name: 外部レイヤー仕様
+      url: /external-layer-specification/
+      weight: 30
+    - identifier: practical-example
+      name: 実践例
+      url: /practical-example/
+      weight: 40
+    - identifier: example-project
+      name: プロジェクト例
+      url: /example-project/
+      weight: 50
+
+# Deployment configuration for GitHub Pages
+deployment:
+  targets:
+    - name: "github-pages"
+      URL: "https://kjun1.github.io/task-management"
+      cloudFrontDistributionID: ""
+
+# Build configuration
+build:
+  writeStats: true

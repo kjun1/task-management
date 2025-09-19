@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>http://localhost:1313/task-management/overview/</loc>
+  </url><url>
+    <loc>http://localhost:1313/task-management/implementation-guide/</loc>
+  </url><url>
+    <loc>http://localhost:1313/task-management/external-layer-specification/</loc>
+  </url><url>
+    <loc>http://localhost:1313/task-management/practical-example/</loc>
+  </url><url>
+    <loc>http://localhost:1313/task-management/example-project/</loc>
+  </url><url>
+    <loc>http://localhost:1313/task-management/categories/</loc>
+  </url><url>
+    <loc>http://localhost:1313/task-management/tags/</loc>
+  </url><url>
+    <loc>http://localhost:1313/task-management/</loc>
+  </url>
+</urlset>
