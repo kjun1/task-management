@@ -49,55 +49,6 @@ jobs:
           path: public/
           retention-days: 30
 
-      - name: Deploy to Preview Branch (for manual testing)
-        run: |
-          # Configure git
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          
-          # Create preview branch name
-          PREVIEW_BRANCH="preview-pr-${{ github.event.number }}"
-          
-          # Check if preview branch exists and delete it
-          git fetch origin || true
-          if git ls-remote --exit-code --heads origin $PREVIEW_BRANCH; then
-            git push origin --delete $PREVIEW_BRANCH || true
-          fi
-          
-          # Create new orphan branch for preview
-          git checkout --orphan $PREVIEW_BRANCH
-          git rm -rf .
-          
-          # Copy built site to root
-          cp -r public/* .
-          cp public/.* . 2>/dev/null || true
-          
-          # Create .nojekyll to ensure GitHub Pages works correctly
-          touch .nojekyll
-          
-          # Add README with instructions
-          cat > README.md << 'EOF'
-          # Preview for PR #${{ github.event.number }}
-          
-          This branch contains the built site for PR #${{ github.event.number }}.
-          
-          To view this preview:
-          1. Go to Repository Settings → Pages
-          2. Change source to "Deploy from a branch"
-          3. Select this branch: `preview-pr-${{ github.event.number }}`
-          4. Select "/ (root)" as the folder
-          5. Save the settings
-          
-          The preview will be available at: https://kjun1.github.io/task-management/
-          EOF
-          
-          # Add all files and commit
-          git add .
-          git commit -m "Deploy preview for PR #${{ github.event.number }}"
-          
-          # Push to preview branch
-          git push origin $PREVIEW_BRANCH
-
       - name: Comment PR
         uses: actions/github-script@v8
         with:
@@ -120,13 +71,7 @@ jobs:
             1. 上の "Artifacts" リンクをクリック
             2. \`preview-site-pr-${prNumber}\` をダウンロード
             3. 展開してローカルでサーブ (\`python -m http.server\` など)
-            
-            ### 方法2: GitHub Pagesで確認 (手動設定)
-            1. [Repository Settings → Pages](https://github.com/kjun1/task-management/settings/pages)
-            2. Source を "Deploy from a branch" に変更
-            3. Branch を \`preview-pr-${prNumber}\` に設定
-            4. Save後、https://kjun1.github.io/task-management/ でアクセス
-            `;
+            4. ブラウザで \`http://localhost:8000\` にアクセス
             
             github.rest.issues.createComment({
               issue_number: context.issue.number,

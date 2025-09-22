@@ -16,7 +16,7 @@
     "preview": "npm run build && cd public && python3 -m http.server 8080"
   },
   "devDependencies": {
-    "markdownlint-cli": "^0.37.0",
+    "markdownlint-cli": "^0.45.0",
     "markdown-link-check": "^3.11.2",
     "npm-check-updates": "^18.3.0",
     "@lhci/cli": "^0.12.0"
