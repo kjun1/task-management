@@ -43,7 +43,7 @@ jobs:
             --baseURL "https://kjun1.github.io/task-management/"
 
       - name: Upload Preview Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: preview-site-pr-${{ github.event.number }}
           path: public/
